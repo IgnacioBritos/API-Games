@@ -1,61 +1,82 @@
 const  axios  = require('axios');
 const {Videogame}=require('../db');
-const URL = `https://api.rawg.io/api/`;
+const URL = `https://api.rawg.io/api`;
 const KEY= `?key=b06e6fc1964847f385b23b26ef7f58cd`;
-const {CreateGame}=require('./controlers');
-
-
+const {ALLVIDEOGAMES,DETAILVIDEOGAMES,SEARCHAPI}=require('./controlers');
+const { Op } = require("sequelize");
+  
+//----------------- GET | /videogames**-----------------
 const getAllVideogames= async (req,res)=>{
-    
     try {
-        let URLbase=`${URL}games${KEY}`
-        let i=0;
-        while(i<5) {
-            const {data}= await axios(URLbase)
-            CreateGame(data.results)
-            URLbase = data.next;
-            i++ ; 
-        }
-        const allVideogames = await Videogame.findAll()
-        res.status(200).send(allVideogames)
+        let URLbase=`${URL}/games${KEY}`;
+        res.status(200).send(await ALLVIDEOGAMES(URLbase))
     } catch (error) {
-        res.status(500).send(error.mesagge)
+        res.status(404).send(error.mesagge)
+    }
+}
+//-------------------- GET | /videogames/:idVideogame----------------------------//
+const getDetailGame = async (req, res) => {
+    try {
+        const { id } = req.params;
+       if (isNaN(id)) {
+           const detailGame = await Videogame.findByPk(id);
+            console.log(detailGame)
+            res.status(200).json(detailGame);
+    } else {
+            const apiResponse = await axios.get(`${URL}/games/${id}${KEY}`);
+            const data = apiResponse.data;
+            res.status(200).send(DETAILVIDEOGAMES(data));
+    } 
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+};
+
+
+//--------------------POST | /videogames---------------------------------//
+const postVideogames = async(req,res)=>{
+    try {
+        const game =req.body;
+        const newVideogames = await Videogame.create(game);
+        res.status(200).json(newVideogames)
+    } catch (error) {
+        res.status(400).send({error:error.mesagge})
     }
 }
 
-module.exports={
-    getAllVideogames,
+
+//---------------- GET | /videogames/name----------------------------------//
+const getGamesName = async(req,res)=>{
+    try {
+    const searchTerm = req.query.name;
+    const apiResults = await SEARCHAPI(searchTerm);
+    if (apiResults.length === 0) {
+        return res.status(404).json({ message: "No se encontraron videojuegos" });
+    }
+      res.status(200).json(apiResults);
+    } catch (error) {
+        res.status(400).send({error:error.mesagge}) 
+    }
+}
+
+//------------------GET | /genres**-----------------------//
+
+const getGenres=async(req,res)=>{
+    try {
+        const {data} = await axios(`${URL}/genres${KEY}`)
+        const genres = data.results.map((gener)=>gener.name)
+        res.status(200).json(genres)
+    } catch (error) {
+        res.status(400).send({error:error.mesagge}) 
+    }
 }
 
 
-// const axios = require("axios");
-// const getData = require("../utils/getData");
 
-// const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
-
-// const getPokemons = async (req, res) => {
-//   try {
-//     let allPokemons = [];
-//     let endpoint = baseUrl;
-
-//     while (allPokemons.length < 60) {
-//       const response = await axios.get(endpoint);
-//       allPokemons.pusponsh(...rese.data.results);
-//       endpoint = response.data.next;
-//     }
-
-//     const pokemonPromises = allPokemons
-//       .slice(0, 60)
-//       .map((poke) => axios.get(poke.url));
-//     const pokemonResponses = await Promise.all(pokemonPromises);
-//     const pokemons = await Promise.all(
-//       pokemonResponses.map((response) => getData(response.data))
-//     );
-
-//     res.status(200).json(pokemons);
-//   } catch (error) {
-//     res.status(500).send(error.message);
-//   }
-// };
-
-// module.exports = getPokemons;
+module.exports={
+    getAllVideogames,
+    getDetailGame,
+    postVideogames,
+    getGamesName,
+    getGenres
+}

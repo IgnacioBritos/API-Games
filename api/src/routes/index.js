@@ -1,14 +1,19 @@
 const { Router } = require('express');
-const {getAllVideogames}= require('../handels/handels')
+const {getAllVideogames,getDetailGame, postVideogames,getGamesName,getGenres}= require('../handels/handels')
 
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 
 
 const router = Router();
 
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
-router.get(' /videogames',getAllVideogames);
+router.get('/videogames',getAllVideogames);
+
+router.get('/videogames/:id',getDetailGame);
+
+router.get("/name", getGamesName)// /name?name=nombre
+
+router.get('/genres',getGenres)
+
+router.post('/videogames', postVideogames);
+
 
 module.exports = router;
