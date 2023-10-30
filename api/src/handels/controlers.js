@@ -43,7 +43,7 @@ const DETAILVIDEOGAMES=(data)=>{
         rating: data.rating,
         released:data.released,
         image: data.background_image,
-        description:data.description,
+        description:data.description_raw,
         platafoms: data.platforms.map((platafom) => platafom.platform.name),
         }
     return game
