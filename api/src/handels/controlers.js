@@ -15,6 +15,7 @@ async function ALLVIDEOGAMES(URLbase) {
                 rating: juegos.rating,
                 released: juegos.released,
                 image: juegos.background_image,
+                genres: juegos.genres.map((genre) => genre.name),
                 platafoms: juegos.platforms.map((platafom) => platafom.platform.name),
             };
             ALLGAMES.push(game);
@@ -31,6 +32,7 @@ async function ALLVIDEOGAMES(URLbase) {
             rating: game.rating,
             released: game.released,
             image: game.image,
+            genres:game.genres,
             platafoms: game.platafoms,
         });
     });
@@ -54,7 +56,8 @@ const DETAILVIDEOGAMES=(data)=>{
 function filtro(arr, letras) {
     const resultado = arr.filter((element) => {
         const nombre = element.name;
-        return nombre && nombre.substring(0, 3).toLowerCase() === letras.substring(0, 3).toLowerCase();
+        const cantLetras= letras.length
+        return nombre && nombre.substring(0,cantLetras).toLowerCase() === letras.substring(0, 3).toLowerCase();
     });
 
     return resultado;
