@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { functionAllGames } from "../../redux/action"
@@ -21,7 +21,7 @@ const CreateGames=()=>{
     const handleChange = (event) => {
         const { name, value, type } = event.target;
     
-        if (type === 'text' || type === 'number') {
+        if (type === 'text' || type === 'number' || type==="url") {
           setNewGame({
             ...newGame,
             [name]: value,
@@ -39,7 +39,7 @@ const CreateGames=()=>{
             });
           }
         }
-        console.log(newGame)
+    
       };
     
       const handleSubmit = (event) => {
@@ -48,6 +48,14 @@ const CreateGames=()=>{
         .post('http://localhost:3001/videogames/', newGame)
         .then((response) => {
             dispatch(functionAllGames());
+            setNewGame({
+              name: '',
+              released: '',
+              rating: '',
+              image: '',
+              description: '',
+              genres: [],
+            });
         })
         .catch((error) => {
             console.error('Error al enviar el juego:', error);
@@ -55,11 +63,11 @@ const CreateGames=()=>{
       };
 
     return(
-        <form onSubmit={handleSubmit}
-        className={styles.formContainer}
-        ><div className={styles.inputsContainer}>
+       <form onSubmit={handleSubmit}
+        className={styles.formContainer}>
+          <div className={styles.inputsContainer}>
 
-            <label htmlFor="">name:</label>
+            <label htmlFor="">NAME</label>
             <input 
              type="text"
              name="name" 
@@ -67,7 +75,7 @@ const CreateGames=()=>{
              onInput={handleChange} 
             />
 
-            <label htmlFor="">released:</label>
+            <label htmlFor="">RELEASED</label>
             <input 
              type="text"
              name="released" 
@@ -75,7 +83,7 @@ const CreateGames=()=>{
              onInput={handleChange} 
             />
 
-            <label htmlFor="">rating:</label>
+            <label htmlFor="">RANTING</label>
             <input 
              type="number"
              name="rating" 
@@ -83,15 +91,15 @@ const CreateGames=()=>{
              onInput={handleChange} 
             />
 
-            <label htmlFor="">image:</label>
+            <label htmlFor="">IMAGE</label>
             <input 
-             type="text"
+             type="url"
              name="image" 
              value={newGame.image} 
              onInput={handleChange} 
             />
 
-            <label htmlFor="">description:</label>
+            <label htmlFor="">DESCRIPTION</label>
             <input 
              type="text"
              name="description" 

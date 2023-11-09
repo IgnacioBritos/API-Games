@@ -5,11 +5,11 @@ const {getAllVideogames,getDetailGame, postVideogames,getGamesName,getGenres}= r
 
 const router = Router();
 
-router.get('/videogames',getAllVideogames);
+router.get('/videogames' ,getAllVideogames);
 
 router.get('/videogames/:id',getDetailGame);
 
-router.get("/name", getGamesName)// /name?name=nombre
+router.get("/name", getGamesName)
 
 router.get('/genres',getGenres)
 
