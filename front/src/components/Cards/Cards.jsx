@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from '../Card/Card';
+import styles from '../Cards/Cards.module.css'
 
 export default function Cards({ allGames }) {
   const gamesPerPage = 20;
@@ -16,7 +17,7 @@ export default function Cards({ allGames }) {
   );
 
   return (
-    <div>
+    <main className={styles.container_cards}>
       {currentPage > 1 && (
         <button onClick={() => setCurrentPage(currentPage - 1)}>
           Página anterior
@@ -32,7 +33,7 @@ export default function Cards({ allGames }) {
           <Card key={id} id={id} name={name} image={image} />
         );
       })}
-    </div>
+    </main>
   );
 }
 

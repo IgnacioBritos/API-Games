@@ -38,6 +38,7 @@ async function ALLVIDEOGAMES(URLbase) {
     });
     return ALLGAMES;
 }
+
 //getDetailGame
 const DETAILVIDEOGAMES=(data)=>{
     const game ={

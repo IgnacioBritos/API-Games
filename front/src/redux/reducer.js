@@ -7,7 +7,6 @@ const initalState ={
     ],
     allGenres:[
     ],
-    order:false
 }
 
 const reducer =(state=initalState,action)=>{

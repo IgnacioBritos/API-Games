@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    platafoms:{
+    genres:{
       type:DataTypes.ARRAY(DataTypes.STRING),
       allowNull:false,
     },

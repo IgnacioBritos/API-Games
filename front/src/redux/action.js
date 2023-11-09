@@ -15,7 +15,7 @@ export const functionAllGames =()=>{
                 payload:data
             })  
         } catch (error) {
-            console.error('Error al buscar juegos:', error)
+            console.error('Error al buscar los juegos:', error)
         }
     }
 }
@@ -30,7 +30,7 @@ export const functionAllGenres =()=>{
                 payload:data
             })  
         } catch (error) {
-            console.error('Error al buscar juegos:', error)
+            console.error('Error al traer los generos:', error)
         }
     }
 }
@@ -44,38 +44,47 @@ export const fuctionFilterGames=(letras)=>{
                 }) 
             
         } catch (error) {
-            console.error('Error:', error)
+            console.error('Error en el filtrado:', error)
         }
     }
 }
 //--------------------------------------------------------
-export const functionSortOrder = () =>{
+export const functionSortOrder = (booleano) =>{
     return async (dispatch ,getState)=>{
     try {
         const {allGames}= getState()
-        const sortedGames = [...allGames].sort((a, b) => a.name.localeCompare(b.name))
-        return dispatch({
-            type: ORDER,
-            payload: sortedGames,
-        })
+        if(booleano){
+            const sortedGames = [...allGames].sort((a, b) => a.name.localeCompare(b.name))
+            return dispatch({
+                type: ORDER,
+                payload: sortedGames,
+            })
+        }else{
+            const sortedGames = [...allGames].sort((a, b) => b.name.localeCompare(a.name))
+            return dispatch({
+                type: ORDER,
+                payload: sortedGames,
+            })
+        }
     } catch (error) {
         console.error('Error en el ordenamiento', error)
     }
 }
 }
 //--------------------------------------------------------
-export const functionSortGenres=(genres)=>{
-
-    return async (dispatch ,getState)=>{
-        try {
-            const {allGames}= getState()
-            const sortedGames= allGames.filter((game)=>{return game.genres==genres})
+export const functionSortGenres = (selectedGenre) => {
+    return async (dispatch, getState) => {
+      try {
+        const { allGames } = getState();
+        const sortedGames = allGames.filter((game) => {
+          return game.genres.includes(selectedGenre);
+        });
             return dispatch({
                 type: GENRES,
                 payload: sortedGames,
             })
         } catch (error) {
-            console.error('Error en el ordenamiento', error)
+            console.error('Error con los genres', error)
         }
     }
     }

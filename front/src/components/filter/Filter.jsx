@@ -7,20 +7,17 @@ const Filter=()=>{
     const dispatch =useDispatch();
     const allGenres= useSelector((state)=> state.allGenres)
     const [selectedGenre, setSelectedGenre] = useState('');
-
+    const [order, setOder] = useState(true);
 
     const handelSortOrder=()=>{
-        dispatch(functionSortOrder())
+        dispatch(functionSortOrder(order))
+        setOder(!order)
     }
     const handleGenreChange = (event) => {
         const newGenre = event.target.value;
         setSelectedGenre(newGenre);
         dispatch(functionSortGenres(newGenre))
     };
-
-    useEffect(()=>{
-        dispatch(functionAllGenres())
-    },[])
 
     return(
         <div>
