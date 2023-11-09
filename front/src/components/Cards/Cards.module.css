@@ -4,4 +4,14 @@
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 7px;
+    text-align: center;
+}
+.button_right{
+    position: absolute;
+    left: 0px;
+}
+.button_left{
+    position: absolute;
+    right: 0px;
+    
 }

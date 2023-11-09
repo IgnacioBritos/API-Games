@@ -19,18 +19,22 @@ export default function Cards({ allGames }) {
   return (
     <main className={styles.container_cards}>
       {currentPage > 1 && (
-        <button onClick={() => setCurrentPage(currentPage - 1)}>
-          Página anterior
+        <button onClick={() => setCurrentPage(currentPage - 1)}
+        className={styles.button_right}
+        >
+          anterior
         </button>
       )}
       {currentPage < totalPages && (
-         <button onClick={nextPage}>Página siguiente</button>
+         <button onClick={nextPage}
+         className={styles.button_left}
+         >siguiente</button>
         
       )}
 
-      {gamesToDisplay.map(({ id, name, image }) => {
+      {gamesToDisplay.map(({ id, genres, name, image }) => {
         return (
-          <Card key={id} id={id} name={name} image={image} />
+          <Card key={id} id={id} genres={genres} name={name} image={image} />
         );
       })}
     </main>

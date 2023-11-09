@@ -218,7 +218,15 @@ Se debe desarrollar una aplicación utilizando **React** y **Redux** que conteng
 -  Fecha de lanzamiento.
 -  Rating.
 -  Géneros.
-
+const game = {
+                id: juegos.id,
+                name: juegos.name,
+                rating: juegos.rating,
+                released: juegos.released,
+                image: juegos.background_image,
+                genres: juegos.genres.map((genre) => genre.name),
+                platafoms: juegos.platforms.map((platafom) => platafom.platform.name),
+            };
 <br />
 
 **📍 FORM PAGE |**: en esta vista se encontrará el formulario para crear un nuevo videojuego.

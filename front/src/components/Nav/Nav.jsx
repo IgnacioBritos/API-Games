@@ -10,18 +10,18 @@ export default function Nav(){
     return(
         <header className={styles.header}>
             <Link to={`/`}
-            className={styles.button}
              >
-            <button>home</button>
+            <button className={styles.button} >GAMES</button>
             </Link>
-
             <SearchBar/>
-            <Filter/>
             <Link to={`/newGame`}
              className={styles.button}
             >
-            <button>New Game</button>
+            <button className={styles.button_newGame}>New Game</button>
             </Link>
+        <div className={styles.filter}>
+            <Filter/>
+        </div>
             
         </header>
     )

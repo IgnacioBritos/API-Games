@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { functionAllGames } from "../../redux/action"
+import styles from '../createGames/CreateGames.module.css'
 
 const CreateGames=()=>{
     const dispatch = useDispatch()
@@ -54,7 +55,10 @@ const CreateGames=()=>{
       };
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}
+        className={styles.formContainer}
+        ><div className={styles.inputsContainer}>
+
             <label htmlFor="">name:</label>
             <input 
              type="text"
@@ -94,23 +98,26 @@ const CreateGames=()=>{
              value={newGame.description} 
              onInput={handleChange} 
             />
+        </div>
 
-            <label htmlFor="genres">Géneros:</label>
-                {allGenres.map((genre) => (
-                    <div key={genre}>
-                    <input
-                        type="checkbox"
-                        name="genres"
-                        value={genre}
-                        checked={newGame.genres.includes(genre)}
-                        onChange={handleChange}
-                    />
-                    <label>{genre}</label>
-                    </div>
-                ))}
-
+        <div className={styles.checkboxContainer}>
+          <label className={styles.inputLabel} htmlFor="genres">Género</label>
+          {allGenres.map((genre) => (
+            <div key={genre}>
+            <input
+              type="checkbox"
+              name="genres"
+              value={genre}
+              checked={newGame.genres.includes(genre)}
+              onChange={handleChange}
+              />
+            <label>{genre}</label>
+          </div>
+          ))}
+        </div>
 
             <button
+            className={styles.submitButton}
                     type="submit"
                     disabled={
                     !newGame.name ||

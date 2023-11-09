@@ -1,0 +1,37 @@
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 35%;
+    
+  }
+
+  .inputsContainer{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputLabel {
+    font-size: 25px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .checkboxContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  
+  .submitButton {
+    background-color: #929090;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .submitButton:disabled {
+    background-color: #c0c0c0;
+    cursor: not-allowed;
+  }

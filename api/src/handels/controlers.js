@@ -47,6 +47,7 @@ const DETAILVIDEOGAMES=(data)=>{
         released:data.released,
         image: data.background_image,
         description:data.description_raw,
+        genres: data.genres.map((genre) => genre.name),
         platafoms: data.platforms.map((platafom) => platafom.platform.name),
         }
     return game
